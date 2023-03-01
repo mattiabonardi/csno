@@ -1,0 +1,9 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://localhost:8000
+functions:
+  authentication:
+    lang: golang-http
+    handler: ./authentication
+    image: localhost:5000/authentication:latest

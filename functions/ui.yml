@@ -1,7 +1,7 @@
 version: 1.0
 provider:
   name: openfaas
-  gateway: localhost:8000
+  gateway: http://localhost:8000
 functions:
   ui:
     lang: dockerfile

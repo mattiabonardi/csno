@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Set permission
-sudo chmod 744 /etc/rancher/k3s/k3.yaml
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 # Intall OpenFaaS
