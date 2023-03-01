@@ -49,17 +49,22 @@ func LoginHanlder() http.HandlerFunc {
 		}
 		// split tokens
 		accessTokenSplitted := strings.Split(accessToken.Value, ".")
+		refreshTokenSplitted := strings.Split(refreshToken.Value, ".")
 
 		// create response
 		LoginResponseDTO.AccessToken = types.TokenDTO{
 			Value:      accessTokenSplitted[0] + "." + accessTokenSplitted[1],
 			Expiration: accessToken.Expiration,
 		}
-		LoginResponseDTO.RefreshToken = refreshToken
+		LoginResponseDTO.RefreshToken = types.TokenDTO{
+			Value:      refreshTokenSplitted[0] + "." + refreshTokenSplitted[1],
+			Expiration: refreshToken.Expiration,
+		}
 		LoginResponseDTO.Message = "Login successfull"
 
 		// set token signature as cookie http only
-		w.Header().Set("Set-Cookie", "accessTokenSignature="+accessTokenSplitted[2]+";Expire="+time.Unix(accessToken.Expiration, 0).String()+";HttpOnly")
+		w.Header().Add("Set-Cookie", "accessTokenSignature="+accessTokenSplitted[2]+";Expire="+time.Unix(accessToken.Expiration, 0).String()+";HttpOnly")
+		w.Header().Add("Set-Cookie", "refreshTokenSignature="+refreshTokenSplitted[2]+";Expire="+time.Unix(refreshToken.Expiration, 0).String()+";HttpOnly")
 
 		res, err := json.Marshal(LoginResponseDTO)
 		if err != nil {
