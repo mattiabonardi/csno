@@ -4,6 +4,6 @@ provider:
   gateway: http://localhost:8000
 functions:
   authentication:
-    lang: golang-http
+    lang: golang-middleware
     handler: ./authentication
     image: localhost:5000/authentication:latest

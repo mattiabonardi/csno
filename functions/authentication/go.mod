@@ -1,5 +1,8 @@
 module handler/function
 
-go 1.18
+go 1.19
 
-require github.com/openfaas/templates-sdk/go-http v0.0.0-20220408082716-5981c545cb03
+require (
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/google/uuid v1.3.0
+)

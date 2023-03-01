@@ -1,20 +1,23 @@
 package function
 
 import (
-	"fmt"
+	"handler/function/handlers"
+	"handler/function/managers"
 	"net/http"
-
-	handler "github.com/openfaas/templates-sdk/go-http"
+	"strings"
 )
 
-// Handle a function invocation
-func Handle(req handler.Request) (handler.Response, error) {
-	var err error
+var routes = map[string]func(http.ResponseWriter, *http.Request){}
 
-	message := fmt.Sprintf("Body: %s", string(req.Body))
+func init() {
+	routes["/login"] = handlers.LoginHanlder()
+}
 
-	return handler.Response{
-		Body:       []byte(message),
-		StatusCode: http.StatusOK,
-	}, err
+func Handle(w http.ResponseWriter, r *http.Request) {
+	if strings.Contains(r.URL.Path, "/login") {
+		routes["/login"](w, r)
+		return
+	}
+
+	managers.ThrowNotFoundError(w)
 }
