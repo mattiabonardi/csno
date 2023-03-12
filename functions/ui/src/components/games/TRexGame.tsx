@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
-import { Runner } from "../games/tRexRunner";
-import { TRexGameMode } from "../types/game";
-import "../styles/games/TRexGame.css";
+import { Runner } from "../../games/tRexRunner";
+import "../../styles/games/TRexGame.css";
 
 interface TRexGameProps {
-  mode: TRexGameMode;
+  mode: string;
 }
 
+/**
+ * T-Rex game component
+ * @param props
+ * @returns
+ */
 export const TRexGame: React.FC<TRexGameProps> = (props) => {
-  const offlineResource1x = `assets/t_rex_game/${props.mode}_100_percent/100-offline-sprite.png`;
-  const offlineResource2x = `assets/t_rex_game/${props.mode}_200_percent/200-offline-sprite.png`;
+  const offlineResource1x = `/assets/t_rex_game/${props.mode}_100_percent/100-offline-sprite.png`;
+  const offlineResource2x = `/assets/t_rex_game/${props.mode}_200_percent/200-offline-sprite.png`;
 
   useEffect(() => {
     new Runner(".interstitial-wrapper", undefined);

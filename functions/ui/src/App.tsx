@@ -1,7 +1,6 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import GamePage from "./pages/GamePage";
+import { TRexGamePage } from "./pages/games/t-rex-game/[id]";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 
@@ -9,9 +8,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/game" element={<GamePage />} />
-          <Route path="*" element={<NoPage />} />
+        <Route path="/" index element={<Home />} />
+        <Route path="/games/t-rex-game/:id" element={<TRexGamePage />} />
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
   );

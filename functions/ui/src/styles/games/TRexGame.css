@@ -17,12 +17,6 @@ body {
 }
 
 .icon-offline {
-  content: -webkit-image-set(
-    url(../../../public/assets/t_rex_game/default_100_percent/100-error-offline.png)
-      1x,
-    url(../../../public/assets/t_rex_game/default_200_percent/200-error-offline.png)
-      2x
-  );
   position: relative;
 }
 
