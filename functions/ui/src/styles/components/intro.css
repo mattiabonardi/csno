@@ -1,0 +1,50 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0 75px 0;
+  display: flex;
+  text-align: right;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 99;
+  overflow: hidden;
+  background-color: black;
+  opacity: 1;
+  -webkit-animation: hideElement 4s forwards;
+  animation: hideElement 4s forwards;
+  box-sizing: border-box;
+}
+
+/** Desktop */
+@media screen and (min-width: 992px) {
+  .wrapper {
+    padding: 0 200px 0;
+  }
+}
+
+@keyframes hideElement {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes hideElement {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

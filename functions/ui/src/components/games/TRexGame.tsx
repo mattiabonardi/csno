@@ -16,7 +16,7 @@ export const TRexGame: React.FC<TRexGameProps> = (props) => {
   const offlineResource2x = `/assets/t_rex_game/${props.mode}_200_percent/200-offline-sprite.png`;
 
   useEffect(() => {
-    new Runner(".interstitial-wrapper", undefined);
+    new Runner(".interstitial-wrapper");
 
     document.onkeydown = function (evt: any) {
       evt = evt || window.event;
@@ -25,12 +25,21 @@ export const TRexGame: React.FC<TRexGameProps> = (props) => {
         box.style.visibility = "hidden";
       }
     };
+
+    const pressSpaceKey = () => {
+      new KeyboardEvent("keydown", { keyCode: 32, which: 32 });
+      var e = new KeyboardEvent("keydown", { keyCode: 32, which: 32 });
+      document.dispatchEvent(e);
+    };
+
+    document.onclick = pressSpaceKey;
+    document.ontouchstart = pressSpaceKey;
   }, []);
 
   return (
     <div id="t" className="offline">
-      <div id="messageBox" className="sendmessage">
-        <h1>Press Space to start</h1>
+      <div id="messageBox" className="sendMessage">
+        <h1>Press to start</h1>
         <div className="niokbutton"></div>
       </div>
       <div id="main-frame-error" className="interstitial-wrapper">

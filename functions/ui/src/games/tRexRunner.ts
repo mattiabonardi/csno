@@ -9,7 +9,7 @@
  * @constructor
  * @export
  */
-export function Runner(outerContainerId, opt_config): void {
+export function Runner(outerContainerId, opt_config?): void {
   // Singleton
   if ((Runner as any).instance_) {
     return (Runner as any).instance_;
