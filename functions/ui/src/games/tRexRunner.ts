@@ -1,7 +1,3 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 /**
  * T-Rex runner.
  * @param {string} outerContainerId Outer containing element id.
@@ -9,7 +5,7 @@
  * @constructor
  * @export
  */
-export function Runner(outerContainerId, opt_config?): void {
+function Runner(outerContainerId, opt_config?): void {
   // Singleton
   if ((Runner as any).instance_) {
     return (Runner as any).instance_;
@@ -2903,3 +2899,7 @@ Horizon.prototype = {
     );
   },
 };
+
+export function startGame(){
+  new Runner(".interstitial-wrapper");
+}

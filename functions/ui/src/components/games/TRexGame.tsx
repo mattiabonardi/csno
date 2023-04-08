@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { Runner } from "../../games/tRexRunner";
+import { startGame } from "../../games/tRexRunner";
 import "../../styles/games/TRexGame.css";
 
 interface TRexGameProps {
@@ -16,8 +17,7 @@ export const TRexGame: React.FC<TRexGameProps> = (props) => {
   const offlineResource2x = `/assets/t_rex_game/${props.mode}_200_percent/200-offline-sprite.png`;
 
   useEffect(() => {
-    new Runner(".interstitial-wrapper");
-
+    startGame();
     document.onkeydown = function (evt: any) {
       evt = evt || window.event;
       if (evt.keyCode === 32) {
@@ -32,7 +32,6 @@ export const TRexGame: React.FC<TRexGameProps> = (props) => {
       document.dispatchEvent(e);
     };
 
-    document.onclick = pressSpaceKey;
     document.ontouchstart = pressSpaceKey;
   }, []);
 

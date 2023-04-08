@@ -10,6 +10,7 @@ export const Intro: React.FC<IntroProps> = ({ active }) => {
     return (
       <>
         <div className="wrapper">
+          <img src="logo.svg" alt="logo"></img>
           <Loading></Loading>
         </div>
       </>

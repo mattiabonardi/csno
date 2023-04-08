@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import { createRef, useEffect, useState } from "react";
@@ -19,8 +20,7 @@ export default function Home() {
   }, [visible]);
 
   useEffect(() => {
-    console.log("effect");
-    const n = window.innerWidth > 1000 ? 1 : 1.5;
+    const n = window.innerWidth > 1000 ? 1.8 : 1.5;
     // camera
     const camera = new THREE.OrthographicCamera(
       window.innerWidth / -n,
@@ -40,9 +40,17 @@ export default function Home() {
 
     // spline scene
     const loader = new SplineLoader();
-    loader.load("scene.splinecode", (splineScene) => {
-      scene.add(splineScene);
-    });
+    if ((window as any).splineScene) {
+      // add directly spline model to scene
+      scene.add((window as any).splineScene);
+    } else {
+      // load 3d model
+      loader.load("scene.splinecode", (splineScene) => {
+        scene.add(splineScene);
+        // add splineScene object to window
+        (window as any).splineScene = splineScene;
+      });
+    }
 
     // renderer
     const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -79,14 +87,14 @@ export default function Home() {
       renderer.render(scene, camera);
       controls.update();
     }
-  }, [model]);
+  }, []);
 
   return (
     <main className="main">
       <Intro active={visible}></Intro>
       <div ref={model} className="background"></div>
       <div className="actions">
-        <Link to="/games/t-rex-game/gmp">
+        <Link to="/games/t-rex-game/default">
           <div className="play">
             <img className="playIcon" src="play_arrow.svg" alt="play" />
           </div>

@@ -16,6 +16,7 @@
   -webkit-animation: hideElement 4s forwards;
   animation: hideElement 4s forwards;
   box-sizing: border-box;
+  gap: 20px;
 }
 
 /** Desktop */

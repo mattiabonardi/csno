@@ -3,7 +3,7 @@ import { TRexGame } from "../../../components/games/TRexGame";
 import NoPage from "../../NoPage";
 
 export const TRexGamePage: React.FC = () => {
-  const modes = ["default", "corona", "gmp"];
+  const modes = ["default", "corona", "gmp", "color"];
   // get game id from router
   const { id } = useParams();
 
