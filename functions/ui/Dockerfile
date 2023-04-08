@@ -1,46 +1,18 @@
+FROM node:18.12.1-buster-slim AS builder
 
-FROM ghcr.io/openfaas/of-watchdog:0.9.2 as watchdog
-
-FROM node:16-alpine as build
-
-WORKDIR /
-
-ENV NPM_CONFIG_LOGLEVEL warn
-
-COPY package.json ./
-COPY package-lock.json ./
-COPY tsconfig.json ./
-
-RUN npm i --production
-
-COPY src        ./src
-COPY public     ./public
-
-RUN NODE_ENV=production
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY public/ public/
+COPY src/ src/
+RUN npm install
+COPY . . 
 RUN npm run build
-RUN find build/
 
-FROM alpine:3.14 AS runtime
-WORKDIR /home/app/
-RUN addgroup -S -g 1000 app && adduser -S -u 1000 -g app app
-
-COPY --from=build /build /home/app/public
-WORKDIR /home/app/public
-
-COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
- 
-RUN chown app:app -R /home/app \
-    && chmod 777 /tmp
-
-USER app
-
-ENV mode="static"
-ENV static_path="/home/app/public"
-
-ENV exec_timeout="10s"
-ENV write_timeout="11s"
-ENV read_timeout="11s"
-
-HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
-
-CMD ["fwatchdog"]
+FROM nginx:1.23.2-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN touch /var/run/nginx.pid
+RUN chown -R nginx:nginx /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d
+USER nginx
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
